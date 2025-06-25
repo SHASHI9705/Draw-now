@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "exports": {
-    "./clients": "./src/index.ts"
+    "./client": "./src/index.ts"
 
   },
   "main": "index.js",
