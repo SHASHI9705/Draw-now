@@ -21,7 +21,6 @@ export function ChatRoomClient({
                 type: "join_room",
                 roomId: id
             }));
-
             socket.onmessage = (event) => {
                 const parsedData = JSON.parse(event.data);
                 if (parsedData.type === "chat") {
