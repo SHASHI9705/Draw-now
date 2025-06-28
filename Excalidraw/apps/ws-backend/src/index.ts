@@ -99,6 +99,39 @@ wss.on('connection', function connection(ws, request) {
       })
     }
 
+    if (parsedData.type === "delete") {
+      const roomId = parsedData.roomId;
+      const shapeId = parsedData.id;
+
+      // Find and delete the exact chat record with this shape id
+      const chats = await prismaClient.chat.findMany({
+        where: {
+          roomId: Number(roomId)
+        }
+      });
+      for (const chat of chats) {
+        try {
+          const msg = JSON.parse(chat.message);
+          if (msg.shape && msg.shape.id === shapeId) {
+            await prismaClient.chat.delete({ where: { id: chat.id } });
+          }
+        } catch (e) {
+          // Ignore parse errors
+        }
+      }
+
+      // Broadcast to all users in the room
+      users.forEach(user => {
+        if (user.rooms.includes(roomId)) {
+          user.ws.send(JSON.stringify({
+            type: "delete",
+            id: shapeId,
+            roomId
+          }))
+        }
+      });
+    }
+
   });
 
 });
