@@ -48,7 +48,7 @@ export class Game {
     private clicked: boolean;
     private startX = 0;
     private startY = 0;
-    private selectedTool: Tool = "circle";
+    private selectedTool: Tool = "rect";
 
     private pencilPoints: { x: number; y: number }[] = [];
 

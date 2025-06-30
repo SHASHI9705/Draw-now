@@ -1,0 +1,1 @@
+Delete signup.ts and signin.ts to fully revert the project to the previous state. Only .gitkeep and README.txt should remain in this folder.
